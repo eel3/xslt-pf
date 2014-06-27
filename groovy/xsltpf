@@ -1,0 +1,45 @@
+#!/usr/bin/env groovy
+
+import groovy.transform.CompileStatic
+import javax.xml.transform.TransformerFactory
+import javax.xml.transform.stream.*
+
+@CompileStatic
+def static main(String[] args) {
+  def cli = new CliBuilder(usage: 'xsltpt [-h] [-o output-file] <-t input-xsl> [input-xml]')
+  cli.with {
+    writer = new java.io.PrintWriter(System.err)
+    h 'display this message'
+    o argName: 'output-file', args: 1, 'output file name (or stdout)'
+    t argName: 'input-xsl',   args: 1, 'input xsl file name'
+  }
+  def opt = cli.parse(args)
+  if (!opt) {
+    System.exit 1
+  }
+  if (opt.h) {
+    cli.usage()
+    System.exit 0
+  }
+  if (!opt.t) {
+    cli.usage()
+    System.exit 1
+  }
+  def arg = opt.arguments()
+  if (arg.size() >= 2) {
+    cli.usage()
+    System.exit 1
+  }
+
+  def xml = (arg.size() == 0) ? new StreamSource(System.in)
+                              : new StreamSource(new File(arg[0]))
+  def xsl = new StreamSource(new File(opt.t))
+  def out = (!opt.o) ? new StreamResult(System.out)
+                     : new StreamResult(new File(opt.o))
+
+  def tff = TransformerFactory.newInstance()
+  def tf = tff.newTransformer(xsl)
+  tf.transform(xml, out)
+
+  System.exit 0
+}

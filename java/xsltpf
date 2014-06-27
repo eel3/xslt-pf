@@ -1,0 +1,34 @@
+#!/bin/sh
+# @(#) Wrapper script for XSLT-PF Java implementation. Version 1.0.0.20140619
+
+# usage <status>
+usage() {
+    echo "usage: `basename "$0"` [-h] [-o output-file] <-t input-xsl> [input-xml]" 1>&2
+    exit $1
+}
+
+output='-'
+xsl=
+
+opt=
+while getopts 'ho:t:' opt; do
+    case $opt in
+    h)      usage 0 ;;
+    o)      output="$OPTARG" ;;
+    t)      xsl="$OPTARG" ;;
+    \?)     usage 1 ;;
+    esac
+done
+shift `expr $OPTIND - 1`
+
+[ -n "$xsl" ] || usage 1
+
+xml=
+case $# in
+0)      xml='-' ;;
+1)      xml=$1 ;;
+*)      usage 1 ;;
+esac
+
+CLASSPATH=`dirname \`readlink -f "$0"\``
+exec java XSLTPFCore "$xml" "$xsl" "$output"
