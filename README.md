@@ -11,7 +11,7 @@ zlib License.
 Target environments
 -------------------
 
-Cygwin, Linux, Mac OS X.
+Windows, Cygwin, Linux, Mac OS X.
 
 Probably it works on other Unix-like environment Java supported.
 
@@ -24,11 +24,13 @@ for Java implementation:
 2. (Mac OS X only) Install realpath from [eel3-scripts](https://github.com/eel3/eel3-scripts "eel3-scripts repository").
 3. Compile XSLTPFCore.java.
 4. Put both xsltpf and XSLTPFCore.class in a directory registered in PATH.
+5. (Cygwin only) Put xsltpf.bat in a directory registered in PATH (optional).
 
 for Groovy implementation:
 
 1. Install Groovy 2.3.3 or later.
 2. Put xsltpf in a directory registered in PATH.
+3. (Windows only) Put xsltpf.bat in a directory registered in PATH.
 
 Usage
 -----
