@@ -21,8 +21,9 @@ Set up
 for Java implementation:
 
 1. Install JDK and JRE.
-2. Compile XSLTPFCore.java.
-2. Put both xsltpf and XSLTPFCore.class in a directory registered in PATH.
+2. (Mac OS X only) Install realpath from [eel3-scripts](https://github.com/eel3/eel3-scripts "eel3-scripts repository").
+3. Compile XSLTPFCore.java.
+4. Put both xsltpf and XSLTPFCore.class in a directory registered in PATH.
 
 for Groovy implementation:
 

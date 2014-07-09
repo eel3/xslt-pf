@@ -1,5 +1,5 @@
 #!/bin/sh
-# @(#) Wrapper script for XSLT-PF Java implementation. Version 1.0.0.20140619
+# @(#) Wrapper script for XSLT-PF Java implementation. Version 1.0.1.20140709
 
 # usage <status>
 usage() {
@@ -30,5 +30,5 @@ case $# in
 *)      usage 1 ;;
 esac
 
-CLASSPATH=`dirname \`readlink -f "$0"\``
+export CLASSPATH=`cygpath -w \`dirname \\\`readlink -f \\\\\\\`cygpath -u "$0"\\\\\\\`\\\`\``
 exec java XSLTPFCore "$xml" "$xsl" "$output"
