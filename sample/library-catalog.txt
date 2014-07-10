@@ -30,6 +30,6 @@ published-year	1988
 
 isbn	9780201615869
 title	The Practice of Programming
-author	Brian W. Kernighan, Dennis M. Ritchie
+author	Brian W. Kernighan, Rob Pike
 publisher	Addison-Wesley
 published-year	1999
