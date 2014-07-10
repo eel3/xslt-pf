@@ -1,0 +1,35 @@
+isbn	9780201036695
+title	Software Tools
+author	Brian W. Kernighan, P. J. Plauger
+publisher	Addison-Wesley
+published-year	1976
+
+isbn	9780070342071
+title	The Elements of Programming Style, 2nd Edition
+author	Brian W. Kernighan, P. J. Plauger
+publisher	McGraw-Hill
+published-year	1978
+
+isbn	9780139376818
+title	The Unix Programming Environment
+author	Brian W. Kernighan, Rob Pike
+publisher	Prentice-Hall
+published-year	1983
+
+isbn	9780201079814
+title	The AWK Programming Language
+author	Alfred V. Aho, Brian W. Kernighan, Peter J. Weinberger
+publisher	Addison-Wesley
+published-year	1988
+
+isbn	9780131103627
+title	The C Programming Language, 2nd Edition
+author	Brian W. Kernighan, Dennis M. Ritchie
+publisher	Prentice-Hall
+published-year	1988
+
+isbn	9780201615869
+title	The Practice of Programming
+author	Brian W. Kernighan, Dennis M. Ritchie
+publisher	Addison-Wesley
+published-year	1999
