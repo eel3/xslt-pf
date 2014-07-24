@@ -8,7 +8,7 @@ usage:
 
 .PHONY: test
 test: $(DST)
-	diff -u library-catalog.txt $(DST)
+	diff -u --strip-trailing-cr library-catalog.txt $(DST)
 	# ---- dump begin ------------------------------------------
 	@cat $(DST)
 	# ---- dump end --------------------------------------------
