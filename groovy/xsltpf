@@ -13,7 +13,7 @@ def static main(String[] args) {
     o argName: 'output-file', args: 1, 'output file name (or stdout)'
     t argName: 'input-xsl',   args: 1, 'input xsl file name'
   }
-  def opt = cli.parse(args)
+  def opt = cli.parse args
   if (!opt) {
     System.exit 1
   }
@@ -26,21 +26,21 @@ def static main(String[] args) {
     System.exit 1
   }
   def arg = opt.arguments()
-  if (arg.size() >= 2) {
+  if (arg.size >= 2) {
     cli.usage()
     System.exit 1
   }
 
   try {
-    def xml = (arg.size() == 0) ? new StreamSource(System.in)
-                                : new StreamSource(new File(arg[0]))
+    def xml = (arg.size == 0) ? new StreamSource(System.in)
+                              : new StreamSource(new File(arg[0]))
     def xsl = new StreamSource(new File(opt.t))
     def out = (!opt.o) ? new StreamResult(System.out)
                        : new StreamResult(new File(opt.o))
 
     def tff = TransformerFactory.newInstance()
-    def tf = tff.newTransformer(xsl)
-    tf.transform(xml, out)
+    def tf = tff.newTransformer xsl
+    tf.transform xml, out
 
     System.exit 0
   } catch (e) {
