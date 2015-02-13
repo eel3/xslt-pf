@@ -31,15 +31,20 @@ def static main(String[] args) {
     System.exit 1
   }
 
-  def xml = (arg.size() == 0) ? new StreamSource(System.in)
-                              : new StreamSource(new File(arg[0]))
-  def xsl = new StreamSource(new File(opt.t))
-  def out = (!opt.o) ? new StreamResult(System.out)
-                     : new StreamResult(new File(opt.o))
+  try {
+    def xml = (arg.size() == 0) ? new StreamSource(System.in)
+                                : new StreamSource(new File(arg[0]))
+    def xsl = new StreamSource(new File(opt.t))
+    def out = (!opt.o) ? new StreamResult(System.out)
+                       : new StreamResult(new File(opt.o))
 
-  def tff = TransformerFactory.newInstance()
-  def tf = tff.newTransformer(xsl)
-  tf.transform(xml, out)
+    def tff = TransformerFactory.newInstance()
+    def tf = tff.newTransformer(xsl)
+    tf.transform(xml, out)
 
-  System.exit 0
+    System.exit 0
+  } catch (e) {
+    System.err.println e.getLocalizedMessage()
+    System.exit 1
+  }
 }

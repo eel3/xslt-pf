@@ -17,16 +17,21 @@ public class XSLTPFCore {
 			usage();
 		}
 
-		StreamSource in = isStream(args[0]) ? new StreamSource(System.in)
-		                                    : new StreamSource(new File(args[0]));
-		StreamSource ss = new StreamSource(new File(args[1]));
-		StreamResult out = isStream(args[2]) ? new StreamResult(System.out)
-		                                     : new StreamResult(new File(args[2]));
+		try {
+			StreamSource in = isStream(args[0]) ? new StreamSource(System.in)
+			                                    : new StreamSource(new File(args[0]));
+			StreamSource ss = new StreamSource(new File(args[1]));
+			StreamResult out = isStream(args[2]) ? new StreamResult(System.out)
+			                                     : new StreamResult(new File(args[2]));
 
-		TransformerFactory tff = TransformerFactory.newInstance();
-		Transformer tf = tff.newTransformer(ss);
-		tf.transform(in, out);
+			TransformerFactory tff = TransformerFactory.newInstance();
+			Transformer tf = tff.newTransformer(ss);
+			tf.transform(in, out);
 
-		System.exit(0);
+			System.exit(0);
+		} catch (Exception e) {
+			System.err.println(e.getLocalizedMessage());
+			System.exit(1);
+		}
 	}
 }
