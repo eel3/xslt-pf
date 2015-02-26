@@ -6,9 +6,10 @@ import javax.xml.transform.stream.*
 
 @CompileStatic
 def static main(String[] args) {
-  def cli = new CliBuilder(usage: 'xsltpt [-h] [-o output-file] <-t input-xsl> [input-xml]')
+  def cli = new CliBuilder(usage: 'xsltpt [-h] [-o output-file] <-e string-xsl|-t input-xsl> [input-xml]')
   cli.with {
     writer = new java.io.PrintWriter(System.err)
+    e argName: 'string-xsl',  args: 1, 'xsl string'
     h 'display this message'
     o argName: 'output-file', args: 1, 'output file name (or stdout)'
     t argName: 'input-xsl',   args: 1, 'input xsl file name'
@@ -21,7 +22,7 @@ def static main(String[] args) {
     cli.usage()
     System.exit 0
   }
-  if (!opt.t) {
+  if (!opt.e == !opt.t) {
     cli.usage()
     System.exit 1
   }
@@ -34,7 +35,8 @@ def static main(String[] args) {
   try {
     def xml = (arg.size == 0) ? new StreamSource(System.in)
                               : new StreamSource(new File(arg[0]))
-    def xsl = new StreamSource(new File(opt.t))
+    def xsl = opt.e ? new StreamSource(new StringReader(opt.e))
+                    : new StreamSource(new File(opt.t))
     def out = (!opt.o) ? new StreamResult(System.out)
                        : new StreamResult(new File(opt.o))
 

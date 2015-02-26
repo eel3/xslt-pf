@@ -1,26 +1,31 @@
 #!/bin/sh
-# @(#) Wrapper script for XSLT-PF Java implementation. Version 1.0.1.20140709
+# @(#) Wrapper script for XSLT-PF Java implementation. Version 1.1.0.20150224
 
 # usage <status>
 usage() {
-    echo "usage: `basename "$0"` [-h] [-o output-file] <-t input-xsl> [input-xml]" 1>&2
+    echo "usage: `basename "$0"` [-h] [-o output-file] <-e string-xsl|-t input-xsl> [input-xml]" 1>&2
     exit $1
 }
 
 output='-'
+xslopt=
 xsl=
 
 opt=
-while getopts 'ho:t:' opt; do
+while getopts 'e:ho:t:' opt; do
     case $opt in
+    e)      xslopt='-e'
+            xsl=$OPTARG ;;
     h)      usage 0 ;;
-    o)      output="$OPTARG" ;;
-    t)      xsl="$OPTARG" ;;
+    o)      output=$OPTARG ;;
+    t)      xslopt='-t'
+            xsl=$OPTARG ;;
     \?)     usage 1 ;;
     esac
 done
 shift `expr $OPTIND - 1`
 
+[ -n "$xslopt" ] || usage 1
 [ -n "$xsl" ] || usage 1
 
 xml=
@@ -31,4 +36,4 @@ case $# in
 esac
 
 export CLASSPATH=`cygpath -w \`dirname \\\`readlink -f \\\\\\\`cygpath -u "$0"\\\\\\\`\\\`\``
-exec java XSLTPFCore "$xml" "$xsl" "$output"
+exec java XSLTPFCore "$xml" "$xslopt" "$xsl" "$output"
