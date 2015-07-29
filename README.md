@@ -18,7 +18,9 @@ Probably it works on other Unix-like environment Java supported.
 Set up
 ------
 
-for Java implementation:
+XSLT-PF is written in several programming languages. Choose one among them.
+
+### For Java implementation:
 
 1. Install JDK and JRE.
 2. (Mac OS X only) Install realpath from [eel3-scripts](https://github.com/eel3/eel3-scripts "eel3-scripts repository").
@@ -26,7 +28,7 @@ for Java implementation:
 4. Put xsltpf, XSLTPFCore.class, and XSLTPFCore$XSLInputType.class in a directory registered in PATH.
 5. (Cygwin only) Put xsltpf.bat in a directory registered in PATH (optional).
 
-for Groovy implementation:
+### For Groovy implementation:
 
 1. Install Groovy 2.4.1 or later.
 2. Put xsltpf in a directory registered in PATH.
