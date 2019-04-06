@@ -1,18 +1,36 @@
 #!/bin/sh
-# @(#) Wrapper script for XSLT-PF Java implementation. Version 1.1.0.20150224
+# -*- coding: utf-8-unix -*-
+# vim:fileencoding=utf-8:ff=unix
+# @(#) Wrapper script for XSLT-PF Java implementation.
 
-# usage <status>
+set -u
+umask 0022
+IFS=$(printf ' \t\n_'); IFS=${IFS%_}
+export IFS LC_ALL=C LANG=C
+
+readonly progname=${0##*/}
+readonly version=1.2.0.20190405
+
+# usage <exit-code>
 usage() {
-    echo "usage: `basename "$0"` [-h] [-o output-file] <-e string-xsl|-t input-xsl> [input-xml]" 1>&2
+    echo "usage: $progname [-hv] [-o output-file] <-e string-xsl|-t input-xsl> [input-xml]" 1>&2
     exit $1
 }
+
+# version (no parameter)
+version() {
+    echo "$progname $version" 1>&2
+    exit 0
+}
+
+# main routine
 
 output='-'
 xslopt=
 xsl=
 
 opt=
-while getopts 'e:ho:t:' opt; do
+while getopts 'e:ho:t:v' opt; do
     case $opt in
     e)      xslopt='-e'
             xsl=$OPTARG ;;
@@ -20,10 +38,11 @@ while getopts 'e:ho:t:' opt; do
     o)      output=$OPTARG ;;
     t)      xslopt='-t'
             xsl=$OPTARG ;;
+    v)      version ;;
     \?)     usage 1 ;;
     esac
 done
-shift `expr $OPTIND - 1`
+shift $(($OPTIND - 1))
 
 [ -n "$xslopt" ] || usage 1
 [ -n "$xsl" ] || usage 1
@@ -35,5 +54,5 @@ case $# in
 *)      usage 1 ;;
 esac
 
-export CLASSPATH=`cygpath -w \`dirname \\\`readlink -f \\\\\\\`cygpath -u "$0"\\\\\\\`\\\`\``
+export CLASSPATH=$(cygpath -w $(dirname $(readlink -f $(cygpath -u "$0"))))
 exec java XSLTPFCore "$xml" "$xslopt" "$xsl" "$output"
