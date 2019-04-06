@@ -11,7 +11,7 @@ zlib License.
 Target environments
 -------------------
 
-Windows, Cygwin, Linux, Mac OS X.
+Windows, Cygwin, Linux, macOS.
 
 Probably it works on other Unix-like environment Java supported.
 
