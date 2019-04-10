@@ -10,7 +10,7 @@ def static main(String[] args) {
   cli.with {
     writer = new java.io.PrintWriter(System.err)
     e argName: 'string-xsl',  args: 1, 'xsl string'
-    h 'display this message'
+    h 'show this help message and exit'
     o argName: 'output-file', args: 1, 'output file name (or stdout)'
     t argName: 'input-xsl',   args: 1, 'input xsl file name'
   }
