@@ -6,13 +6,16 @@ import javax.xml.transform.stream.*
 
 @CompileStatic
 def static main(String[] args) {
-  def cli = new CliBuilder(usage: 'xsltpt [-h] [-o output-file] <-e string-xsl|-t input-xsl> [input-xml]')
+  def progName = new File(this.class.protectionDomain.codeSource.location.file).name
+
+  def cli = new CliBuilder(usage: progName + ' [-hv] [-o output-file] <-e string-xsl|-t input-xsl> [input-xml]')
   cli.with {
     writer = new java.io.PrintWriter(System.err)
     e argName: 'string-xsl',  args: 1, 'xsl string'
     h 'show this help message and exit'
     o argName: 'output-file', args: 1, 'output file name (or stdout)'
     t argName: 'input-xsl',   args: 1, 'input xsl file name'
+    v "show program's version number and exit"
   }
   def opt = cli.parse args
   if (!opt) {
@@ -20,6 +23,10 @@ def static main(String[] args) {
   }
   if (opt.h) {
     cli.usage()
+    System.exit 0
+  }
+  if (opt.v) {
+    println progName + ' 1.1.0.20190409'
     System.exit 0
   }
   if (!opt.e == !opt.t) {
