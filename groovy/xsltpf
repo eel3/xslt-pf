@@ -1,4 +1,6 @@
 #!/usr/bin/env groovy
+// -*- coding: utf-8-unix -*-
+// vim:fileencoding=utf-8:ff=unix
 
 import groovy.transform.CompileStatic
 import javax.xml.transform.TransformerFactory
