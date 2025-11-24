@@ -26,7 +26,7 @@ XSLT-PF is written in several programming languages. Choose one among them.
 2. (Mac OS X only) Install realpath from [eel3-scripts](https://github.com/eel3/eel3-scripts "eel3-scripts repository").
 3. Compile XSLTPFCore.java.
 4. Put xsltpf, XSLTPFCore.class, and XSLTPFCore$XSLInputType.class in a directory registered in PATH.
-5. (Cygwin only) Put xsltpf.bat in a directory registered in PATH (optional).
+5. (Cygwin/WSL only) Put xsltpf.bat in a directory registered in PATH (optional).
 
 ### For Groovy implementation:
 
