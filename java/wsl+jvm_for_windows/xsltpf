@@ -1,0 +1,58 @@
+#!/bin/sh
+# -*- coding: utf-8-unix -*-
+# vim:fileencoding=utf-8:ff=unix
+# @(#) Wrapper script for XSLT-PF Java implementation.
+
+set -u
+umask 0022
+IFS=$(printf ' \t\n_'); IFS=${IFS%_}
+export IFS LC_ALL=C LANG=C
+
+readonly progname="${0##*/}"
+readonly version=1.2.1.20220710
+
+# usage <exit-code>
+usage() {
+    echo "usage: $progname [-hv] [-o output-file] <-e string-xsl|-t input-xsl> [input-xml]" 1>&2
+    exit "$1"
+}
+
+# version (no parameter)
+version() {
+    echo "$progname $version" 1>&2
+    exit 0
+}
+
+# main routine
+
+output='-'
+xslopt=
+xsl=
+
+opt=
+while getopts 'e:ho:t:v' opt; do
+    case $opt in
+    e)      xslopt='-e'
+            xsl=$OPTARG ;;
+    h)      usage 0 ;;
+    o)      output=$OPTARG ;;
+    t)      xslopt='-t'
+            xsl=$OPTARG ;;
+    v)      version ;;
+    \?)     usage 1 ;;
+    esac
+done
+shift $((OPTIND - 1))
+
+[ -n "$xslopt" ] || usage 1
+[ -n "$xsl" ] || usage 1
+
+xml=
+case $# in
+0)      xml='-' ;;
+1)      xml=$1 ;;
+*)      usage 1 ;;
+esac
+
+classpath=$(wslpath -w "$(dirname "$(readlink -f "$0")")")
+exec java.exe -cp "$classpath" XSLTPFCore "$xml" "$xslopt" "$xsl" "$output"
